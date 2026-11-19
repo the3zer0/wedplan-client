@@ -1,0 +1,2 @@
+import { InfoPage } from "@/components/shared/info-page";
+export default function TermsPage() { return <InfoPage eyebrow="Terms" title="Using WedPlan thoughtfully" description="These terms outline the expectations for using the WedPlan marketplace."><p>Vendors are responsible for accurate listings and customers are responsible for respectful, genuine booking requests. Final production terms should be reviewed and published before launch.</p></InfoPage>; }

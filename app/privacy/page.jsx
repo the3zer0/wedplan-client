@@ -1,0 +1,2 @@
+import { InfoPage } from "@/components/shared/info-page";
+export default function PrivacyPage() { return <InfoPage eyebrow="Privacy" title="Your information matters" description="This page summarizes the privacy principles for the WedPlan client."><p>Use the server documentation and your account settings to understand how information is collected, used, and protected. A complete production privacy policy should be reviewed and published before launch.</p></InfoPage>; }

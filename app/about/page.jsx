@@ -1,0 +1,2 @@
+import { InfoPage } from "@/components/shared/info-page";
+export default function AboutPage() { return <InfoPage eyebrow="Our story" title="Planning with heart" description="WedPlan brings trusted wedding professionals and thoughtful planning tools together."><p>We believe planning a wedding should feel inspiring, not overwhelming. WedPlan helps couples find the right people and helps vendors share the work they love.</p></InfoPage>; }
