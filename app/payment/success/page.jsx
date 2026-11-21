@@ -15,6 +15,7 @@ function SuccessContent() {
   const [plan, setPlan] = useState("");
   const [error, setError] = useState("");
   const [isPolling, setIsPolling] = useState(true);
+  const [retryKey, setRetryKey] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -51,9 +52,9 @@ function SuccessContent() {
       });
     });
     return () => { active = false; };
-  }, [sessionId]);
+  }, [sessionId, retryKey]);
 
-  return <main className="mx-auto flex min-h-[65vh] max-w-2xl items-center justify-center px-6 py-16"><Card className="w-full border-primary/20 shadow-lg"><CardContent className="p-8 text-center sm:p-12"><div className="mx-auto flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary"><CheckCircle2 className="size-9" /></div><h1 className="mt-6 font-heading text-3xl font-semibold">Payment received</h1>{error ? <p className="mt-4 text-destructive">{error}</p> : <><p className="mt-4 text-muted-foreground">Your payment confirmation has been received{payment?.id ? ` for session ${payment.id}.` : "."}</p><p className="mt-3 text-sm text-muted-foreground">Premium access activates only after the payment is verified by the server. We are checking your subscription status now.</p>{isPolling && <p className="mt-5 flex items-center justify-center gap-2 text-sm text-primary"><Loader2 className="size-4 animate-spin" /> Verifying premium activation...</p>}{plan === "premium" && <p className="mt-5 font-medium text-primary">Your Premium plan is now active.</p>}</>}<Button className="mt-8" render={<Link href="/dashboard/vendor" />}>Go to vendor dashboard</Button></CardContent></Card></main>;
+  return <main className="mx-auto flex min-h-[65vh] max-w-2xl items-center justify-center px-6 py-16"><Card className="w-full border-primary/20 shadow-lg"><CardContent className="p-8 text-center sm:p-12"><div className="mx-auto flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary"><CheckCircle2 className="size-9" /></div><h1 className="mt-6 font-heading text-3xl font-semibold">Payment received</h1>{error ? <><p className="mt-4 text-destructive">{error}</p><Button className="mt-6" onClick={() => { setError(""); setPayment(null); setPlan(""); setIsPolling(true); setRetryKey((value) => value + 1); }}>Try again</Button></> : <><p className="mt-4 text-muted-foreground">Your payment confirmation has been received{payment?.id ? ` for session ${payment.id}.` : "."}</p><p className="mt-3 text-sm text-muted-foreground">Premium access activates only after the payment is verified by the server. We are checking your subscription status now.</p>{isPolling && <p className="mt-5 flex items-center justify-center gap-2 text-sm text-primary"><Loader2 className="size-4 animate-spin" /> Verifying premium activation...</p>}{plan === "premium" && <p className="mt-5 font-medium text-primary">Your Premium plan is now active.</p>}</>}<Button className="mt-8" render={<Link href="/dashboard/vendor" />}>Go to vendor dashboard</Button></CardContent></Card></main>;
 }
 
 export default function PaymentSuccessPage() {
